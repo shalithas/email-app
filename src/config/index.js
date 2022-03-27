@@ -2,8 +2,11 @@
 
 // required environment variables
 const requiredVars = [
-    'NODE_ENV',
-    'PORT'
+  'NODE_ENV',
+  'PORT',
+  'MAIL_GUN_API_URL',
+  'MAIL_GUN_API_KEY',
+  'MAIL_GUN_DOMAIN'
 ];
 
 requiredVars.forEach((name) => {
@@ -20,6 +23,13 @@ const config = {
   },
   server: {
     port: Number(process.env.PORT)
+  },
+  email: {
+    mailGun: {
+      url: process.env.MAIL_GUN_API_URL,
+      key: process.env.MAIL_GUN_API_KEY,
+      domain: process.env.MAIL_GUN_DOMAIN,
+    }
   }
   // ...
 }
