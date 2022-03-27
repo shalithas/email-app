@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const emailService = require('./email.service');
+const mailGunService = require('./mailGun.service');
 
 router.get('/', (req, res) => {
     res.status(405).send({
@@ -16,6 +17,11 @@ router.post('/', async (req, res) => {
         });
     }
 
+    try {
+        await mailGunService.send('Testing mail app', 'shalitha89@gmail.com', 'Test', 'test message');
+    } catch (error) { 
+        console.log(error.response);
+    }
 
     res.send({
         message: 'Email sent successfully'
