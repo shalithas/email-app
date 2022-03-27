@@ -1,9 +1,9 @@
 const Axios = require('axios');
 const config = require('../config');
-console.log(config);
 const { url, domain, key } = config.email.mailGun;
+const sender = config.email.sender;
 
-const send = (from, to, subject, text) => {
+const send = (to, subject, text, cc, bcc) => {
     return Axios({
         url: `${url}/${domain}/messages`,
         method: 'POST',
@@ -15,12 +15,24 @@ const send = (from, to, subject, text) => {
         'Content-Type': 'application/x-www-form-urlencoded'
         },
         params: {
-            from: `${from} <noreply@${domain}>`,
-            to,
+            from: `Mail App <${sender}>`,
+            to: prepareAddresses(to),
+            cc: prepareAddresses(cc),
+            bcc: prepareAddresses(bcc),
             subject,
             text
         }
     });
+}
+
+const prepareAddresses = emailList => {
+    let output = '';
+
+    emailList.forEach((item, index) => {
+        output += `${item} <${item}>${ index !== emailList.length - 1 ? ', ' : ''}`
+    });
+
+    return output;
 }
 
 module.exports = { send };
