@@ -20,9 +20,11 @@ router.post('/', async (req, res) => {
     data.bcc = emailService.prepareEmailAddresses(data.bcc);
 
     //validating
-    if (!emailService.validate(data)) {
+    const validation = emailService.validate(data);
+    console.log(validation);
+    if (!validation.isValid) {
         return res.status(500).send({
-            errorMessage: "Invalid data"
+            errorMessage: validation.errors.join(', ')
         });
     }
     const {
