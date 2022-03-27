@@ -6,7 +6,9 @@ const requiredVars = [
   'PORT',
   'MAIL_GUN_API_URL',
   'MAIL_GUN_API_KEY',
-  'MAIL_GUN_DOMAIN'
+  'MAIL_GUN_DOMAIN',
+  'SENDGRID_API_KEY',
+  'SENDGRID_API_URL',
 ];
 
 requiredVars.forEach((name) => {
@@ -25,10 +27,15 @@ const config = {
     port: Number(process.env.PORT)
   },
   email: {
+    sender: process.env.EMAIL_SENDER,
     mailGun: {
       url: process.env.MAIL_GUN_API_URL,
       key: process.env.MAIL_GUN_API_KEY,
       domain: process.env.MAIL_GUN_DOMAIN,
+    },
+    sendGrid: {
+      key: process.env.SENDGRID_API_KEY,
+      url: process.env.SENDGRID_API_URL,
     }
   }
   // ...
