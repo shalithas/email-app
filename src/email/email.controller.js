@@ -46,6 +46,9 @@ router.post('/', async (req, res) => {
         } catch (error) {
             console.log('SendGrid service failed with error');
             helpers.error.handleAxios(error);
+            return res.status(500).send({
+                errorMessage: 'Unable to send email'
+            });
         }
     }
 
