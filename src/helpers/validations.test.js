@@ -1,19 +1,19 @@
 const validations = require('./validations');
 
 describe('Validation helper module', function () {
-    test('Valid email', () => {
+  test('Valid email', () => {
     expect(validations.email('test.user@test.com')).toBe(true);
-    });
+  });
 
-    test('Invalid email', () => {
+  test('Invalid email', () => {
     expect(validations.email('test.usertest.com')).toBe(false);
-    });
+  });
 
-    test('Valid text', () => {
+  test('Valid text', () => {
     expect(validations.textNotEmpty('Valid text')).toBe(true);
-    });
+  });
 
-    test('Invalid text', () => {
+  test('Invalid text', () => {
     expect(validations.textNotEmpty('')).toBe(false);
-    });
+  });
 });
