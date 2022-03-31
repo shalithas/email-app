@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "jest"
+    "test": "jest",
+    "lint": "./node_modules/.bin/eslint"
   },
   "keywords": [],
   "author": "",
@@ -18,11 +19,12 @@
     "express": "^4.17.3"
   },
   "devDependencies": {
+    "eslint-config-airbnb": "^19.0.4",
     "jest": "^27.5.1",
     "nodemon": "^2.0.15"
   },
-  "engines" : { 
-    "npm" : ">=8.3.1",
-    "node" : ">=16.14.0"
+  "engines": {
+    "npm": ">=8.3.1",
+    "node": ">=16.14.0"
   }
 }
