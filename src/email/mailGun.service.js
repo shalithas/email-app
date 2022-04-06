@@ -1,9 +1,9 @@
-const Axios = require('axios');
-const config = require('../config');
+import Axios from 'axios';
+import config from '../config';
 const { url, domain, key } = config.email.mailGun;
 const sender = config.email.sender;
 
-const send = (to, subject, text, cc, bcc) => {
+export const send = (to, subject, text, cc, bcc) => {
   return Axios({
     url: `${url}/${domain}/messages`,
     method: 'POST',
@@ -34,5 +34,3 @@ const prepareAddresses = (emailList) => {
 
   return output;
 };
-
-module.exports = { send };

@@ -1,12 +1,12 @@
-const express = require('express');
+import { json } from 'express';
 
-const emailController = require('./email/email.controller');
+import emailController from './email/email.controller';
 
-module.exports = (app) => {
+export default (app) => {
   app.get('/', (res, req) => {
     req.send('Welcome to the app');
   });
 
-  app.use(express.json());
+  app.use(json());
   app.use('/api/email', emailController);
 };

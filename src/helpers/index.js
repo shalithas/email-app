@@ -1,4 +1,5 @@
-module.exports = {
-  error: require('./error'),
-  validations: require('./validations'),
-};
+import errorFunc from './error';
+import validationsFunc from './validations';
+
+export const validations = validationsFunc;
+export const error = errorFunc;

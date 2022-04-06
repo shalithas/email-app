@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "vite build && node dist/index.js",
+    "dev": "vite",
     "test": "jest",
     "lint": "./node_modules/.bin/eslint"
   },
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@swc/core": "^1.2.163",
     "axios": "^0.26.1",
     "body-parser": "^1.19.2",
     "dotenv": "^16.0.0",
@@ -21,7 +22,9 @@
   "devDependencies": {
     "eslint-config-airbnb": "^19.0.4",
     "jest": "^27.5.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "vite": "^2.9.1",
+    "vite-plugin-node": "^0.0.19"
   },
   "engines": {
     "npm": ">=8.3.1",

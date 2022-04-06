@@ -8,7 +8,7 @@ const textNotEmpty = (value) => {
   return value != null && value != '';
 };
 
-module.exports = {
+export default {
   email,
   textNotEmpty,
 };

@@ -1,9 +1,9 @@
-const Axios = require('axios');
-const config = require('../config');
+import Axios from 'axios';
+import config from '../config';
 const { key, url } = config.email.sendGrid;
 const sender = config.email.sender;
 
-const send = (to, subject, text, cc, bcc) => {
+export const send = (to, subject, text, cc, bcc) => {
   const data = getDataStructure(to, subject, text, cc, bcc);
   return Axios({
     url: `${url}/mail/send`,
@@ -43,5 +43,3 @@ const getDataStructure = (to, subject, text, cc, bcc) => {
     ],
   };
 };
-
-module.exports = { send };

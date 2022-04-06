@@ -1,11 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const emailService = require('./email.service');
-const mailGunService = require('./mailGun.service');
-const sendGridService = require('./sendGrid.service');
-const helpers = require('../helpers');
+import { Router } from 'express';
+import { prepareEmailAddresses, validate } from './email.service';
+import { send as sendMailGun } from './mailGun.service';
+import { send as sendSendGrid } from './sendGrid.service';
+import { error as _error } from '../helpers';
 
-router.get('/', (req, res) => {
+const router = Router();
+
+router.get('/', (res) => {
   res.status(405).send({
     errorMessage: 'This is not a supported method.',
   });
@@ -15,12 +16,12 @@ router.post('/', async (req, res) => {
   const data = req.body;
 
   // preparing email lists
-  data.to = emailService.prepareEmailAddresses(data.to);
-  data.cc = emailService.prepareEmailAddresses(data.cc);
-  data.bcc = emailService.prepareEmailAddresses(data.bcc);
+  data.to = prepareEmailAddresses(data.to);
+  data.cc = prepareEmailAddresses(data.cc);
+  data.bcc = prepareEmailAddresses(data.bcc);
 
   //validating
-  const validation = emailService.validate(data);
+  const validation = validate(data);
   console.log(validation);
   if (!validation.isValid) {
     return res.status(500).send({
@@ -30,16 +31,16 @@ router.post('/', async (req, res) => {
   const { to, subject, text, cc, bcc } = data;
 
   try {
-    await mailGunService.send(to, subject, text, cc, bcc);
+    await sendMailGun(to, subject, text, cc, bcc);
   } catch (error) {
     console.log('Mailgun service failed with error');
-    helpers.error.handleAxios(error);
+    _error.handleAxios(error);
     console.log('Retrying with SendGrid');
     try {
-      await sendGridService.send(to, subject, text);
+      await sendSendGrid(to, subject, text);
     } catch (error) {
       console.log('SendGrid service failed with error');
-      helpers.error.handleAxios(error);
+      _error.handleAxios(error);
       return res.status(500).send({
         errorMessage: 'Unable to send email',
       });
@@ -51,4 +52,4 @@ router.post('/', async (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;

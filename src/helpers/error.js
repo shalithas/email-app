@@ -13,6 +13,6 @@ const handleAxios = (error) => {
   }
 };
 
-module.exports = {
+export default {
   handleAxios,
 };
