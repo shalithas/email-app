@@ -6,7 +6,7 @@ import { error as _error } from '../helpers';
 
 const router = Router();
 
-router.get('/', (res) => {
+router.get('/', (req, res) => {
   res.status(405).send({
     errorMessage: 'This is not a supported method.',
   });
